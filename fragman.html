@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="film bilgisi.css">
+    <title>Film Bilgisi</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="movie-info-container">
+        <div class="top">
+          <div class="img-1">
+            <img id="thumbnail" src="" alt="Kapak fotoğrafı">
+          </div>
+          <div class="general-info">
+            <h1 id="title">
+              <hr>
+            </h1>
+            <ul>
+              <li>
+                <span>IMDB:</span>
+                <span id="imdb-score"></span>
+              </li>
+              <li>
+                <span>Tür:</span>
+                <span id="genres"></span>
+              </li>
+              <li>
+                <span>Vizyon Tarihi:</span>
+                <span id="release-date"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <div>
+    </div>
+    <div class="movie-info">
+      <p id="summary"></p>
+      <br>
+      <iframe id="trailer-video" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="img-2">
+        <img id="banner" src="" alt="Büyük resim">
+    </div>
+  </body>
+  <script>
+    const database = [
+      {
+        "name": "inception",
+        "title": "INCEPTİON",
+        "imbd": "8,8/10",
+        "genres": "Bilim Kurgu, Aksiyon, Macera",
+        "release_date": "30 Temmuz 2010",
+        "summary": "Dom Cobb çok yetenekli bir hırsızdır. Uzmanlık alanı, zihnin en savunmasız olduğu rüya görme anında, bilinçaltının derinliklerindeki değerli sırları çekip çıkarmak ve onları çalmaktır. Cobb’un bu ender mahareti, onu kurumsal casusluğun tehlikeli yeni dünyasında aranan bir oyuncu yapmıştır. Ancak, aynı zamanda bu durum onu uluslararası bir kaçak yapmış ve sevdiği her şeyi kaybetmesine sebep olmuştur. Cobb’a içinde bulunduğu durumdan kurtulmasını sağlayacak bir fırsat sunulur. Ona hayatını geri verebilecek son bir iş; tabi eğer imkansız başlangıçı tamamlayabilirse... Mükemmel soygun yerine, Cobb ve takımındaki profesyoneller bu sefer tam tersini yapmak zorundadır; görevleri bir fikri çalmak değil onu yerleştirmektir. Eğer başarırlarsa, mükemmel suç bu olacaktır. Ama ne dikkatle yapılan planlamalar, ne de uzmanlıkları, onları, her hareketlerini önceden tahmin ettiği anlaşılan tehlikeli düşmanlarına karşı hazırlıklı kılabilir. Bu, gelişini sadece Cobb’un görebildiği bir düşmandır.",
+        "trailer_video": "https://www.youtube.com/embed/YoHD9XEInc0?si=-R9JAsQAjAJ1buDA" ,
+        "thumbnail": "./img/inception 1.jpg",
+        "banner": "./img/inception 2.jpg"
+      },
+      {
+        "name": "i-am-legend",
+        "title": "I AM LEGEND ",
+        "imbd": "7,2/10",
+        "genres": "Bilim Kurgu, Dram, Gerilim",
+        "release_date": "25 Ocak 2008",
+        "summary": "Robert Neville başarılı bir bilim adamıdır ve insanlığı yok edeceğine inanılan,önüne geçilemez tehlikeli virüs ona bulaşmamıştır. Virüs çok kısa bir zamanda insanların ölümüne sebep olmuş, sonuçta Neville New York'ta hayatta kalan tek insan olmayı başarmıştır. Ancak Neville'in durumu çok zordur çünkü belki de dünya üzerindeki tek insan kendisidir. Üç yıl boyunca dolaşmakta, yaydığı radyo mesajları ile hayatta kalan insanlara ulaşmaya çalışmaktadır. Herhangi bir canlıya rastlayamayan Neville aslında yalnız değildir ve her hareketi izlenmektedir. Salgından sağ kurtulan eski insan-yeni mutantlar Neville'in ölümcül bir hataya düşmesini beklemektedirler.",
+        "trailer_video": "https://www.youtube.com/embed/viGCKRJ94FI?si=Xr9h2bjw1T95as4w",
+        "thumbnail": "./img/ial1.jpg",
+        "banner": "./img/ial2.jpg"
+      },
+      {
+        "name": "v-for-vendetta",
+        "title": "V FOR VENDETTA",
+        "imbd": "8,2/10",
+        "genres": "Bilim Kurgu, Aksiyon, Gerilim",
+        "release_date": "31 Mart 2006",
+        "summary": "V olarak bilinen maskeli bir adam, geleceğin totaliter rejimle yönetilen İngilteresi'nde korkuyla sindirilmiş halkına egemenliği geri verebilmek için şiddete başvuran biridir. V İngiltere halkını, kendisiyle Guy Fawkes günü olan 5 Kasım’da Parlamento’nun çevresinde buluşmaya davet eder.",
+        "trailer_video": "https://www.youtube.com/embed/lSA7mAHolAw?si=pOOmAh3-BGKVL1rf",
+        "thumbnail": "./img/v1.jpg",
+        "banner": "./img/v2.jpg"
+      },
+      {
+        "name": "kara-şövalye",
+        "title": "KARA ŞÖVALYE",
+        "imbd": "9/10",
+        "genres": "Aksiyon, Gerilim, Dram, Suç",
+        "release_date": "18 Temmuz 2008",
+        "summary": "The Dark Knight'da, Batman suça karşı savaşını daha da ileriye götürüyor: Teğmen Jim Gordon ve Bölge Savcısı Harvey Dent’in yardımlarıyla, Batman, şehir sokaklarını sarmış olan suç örgütlerinden geriye kalanları temizlemeye girişir. Bu ortaklığın etkili olduğu açıktır, ama ekip kısa süre sonra kendilerini, Joker olarak bilinen ve Gotham şehri sakinlerini daha önce de dehşete boğmuş olan suç dehasının yarattığı karmaşanın ortasında bulurlar.",
+        "trailer_video": "https://www.youtube.com/embed/xl2NZ0Bt7yQ?si=Q6qdajqzzRKSZQC5",
+        "thumbnail": "img/dark-knight-1.jpg",
+        "banner":"img/dark-knight-2.jpg"
+      },
+      {
+        "name": "mad-max:-furry-road",
+        "title": "MAD MAX: FURRY ROAD",
+        "imbd": "8,1/10 ",
+        "genres": "Bilim Kurgu, Aksiyon, Macera",
+        "release_date": "15 Mayıs 2015",
+        "summary": "Kıyamet sonrası bir çorak arazide, bir kadın, bir grup kadın mahkum, psikotik bir inanan ve Max adında bir serserinin yardımıyla anavatanını aramak için zalim bir yöneticiye isyan eder.",
+        "trailer_video": "https://www.youtube.com/embed/XJMuhwVlca4?si=WNP4_yrc1yu0yiRN",
+        "thumbnail": "./img/m1.jpg",
+        "banner": "./img/m2.jpg"
+      },
+      {
+        "name": "titanik",
+        "title": "TİTANİK",
+        "imbd": "7,9/10",
+        "genres": "Dram, Romantik",
+        "release_date": "10 Şubat 2023",
+        "summary": "İnsan elinden çıkmış en büyük ve en gösterişli yüzen araç olan Titanic yola koyuldu. Batmaz, sarsılmaz denilen bu büyük lüks yolcu gemisinde yolculuk yapmak, 20. Yüzyılın muhteşem bir rüyasıydı. Ancak bu büyük rüya sadece 4.5 gün serecek ve anısını bir sonraki yüzyıla bile taşıyacak büyüklükte bir kabusa dönüşecekti.Geminin ilk ve son yolculuğuyla örtüşen, kısa soluklu ama ölümsüz bir aşk öyküsüne yer veren yönetmen James Cameron, Titanic kadar büyük bir aşk öyküsü merkez alarak, bu bildik felaketi farklı bir tarzda anlatıyor.1998'de 14 dalda Oscar adayı olan Titanic, 11 dalda ödülü kucakladı.",
+        "trailer_video": "https://www.youtube.com/embed/BulFcN7DLAc?si=KgGPoSFB-ejF1AA_",
+        "thumbnail": "./img/t1.jpg",
+        "banner": "./img/t2.jpg"
+      },
+      {       
+       "name": "yeşil-yol",
+        "title": "YEŞİL YOL",
+        "imbd": "8,6/10",
+        "genres": "Dram, Fantastik, Suç",
+        "release_date": "17 Mart 2000",
+        "summary": "Bir hapishanede gardiyanlık yapan Paul Edgecomb'un görevi, hücrelerinden alınan idam mahkumlarını, elektrikli sandalyenin bulunduğu ölüm odasına kadar olan bir millik yeşil yoldan götürmektir. Edgecomb yıllar boyunca bu yoldan sayısız idam mahkumu nakleder. Ama hiçbirisi onu John Coffey kadar etkilemez. Oldukça iri yarı biri olan Coffey, iki küçük kızı öldürmek suçundan idama mahkum olmuştur. Ürkütücü görünümünün aksine oldukça duygulu ve karmaşık bir iç dünyası olan Coffey, bazı doğa üstü güçlere sahiptir. Edgecomb onunla yakınlaştıkça artık hiç beklenmedik yerlerde mucizelerin olabileceğine inanmaya başlayacaktır. Esaretin Bedeli filmini de yönetmiş olan Frank Darabont, bu filminde de benzer bir atmosferi seyirciye başarıyla aktarıyor. Oscar Ödüllü Tom Hanks'in yanında, Michael Clarke Duncan ve James Cromwell gibi oyuncular başrolde yer alıyor.",
+        "trailer_video": "https://www.youtube.com/embed/hfa5F-kRTq4?si=QitjUu6coocNIXsK",
+        "thumbnail": "./img/y1.jpg",
+        "banner": "./img/y2.jpg"
+      },
+      {        
+       "name": "aquaman-2",
+        "title": "AQUAMAN 2",
+        "imbd": "6/10",
+        "genres": "Aksiyon, Fantastik, Macera",
+        "release_date": "22 Aralık 2023",
+        "summary": "Black Manta , babasının ölümünün intikamını almaktaki saplantılı arayışında yıkıcı bir silahı serbest bırakır. Arthur , Atlantis'i,karşı korumak için üvey kardeşi Orm'un yardımına başvurmak zorundadır.",
+        "trailer_video": "https://www.youtube.com/embed/s-3I9Acuw6A?si=OGoguv1Bz77MIisW",
+        "thumbnail": "./img/aq1.jpg",
+        "banner": "./img/aq2.jpg"
+      },
+      {        
+       "name": "rebel-moon",
+        "title": "REBEL MOON",
+        "imbd": "5.7/10",
+        "genres": "Bilim Kurgu",
+        "release_date": "22 Aralık 2023",
+        "summary": "Uzak bir ayın kenarındaki barışçıl bir yerleşim, kendisini zalim bir yönetici gücün orduları tarafından tehdit altında bulur. Köylüler arasında yaşayan gizemli bir yabancı, onların hayatta kalmak için en iyi umutları haline gelir.",
+        "trailer_video": "https://www.youtube.com/embed/2rXpLH3MRjg?si=9pd_xJ4IJk3Jxngu",
+        "thumbnail": "./img/r1.jpg",
+        "banner": "./img/r2.jpg"
+      },
+      {        
+       "name": "wonka",
+        "title": "WONKA",
+        "imbd": "7,3/10",
+        "genres": "Aile, Fantastik, Komedi",
+        "release_date": "15 Aralık 2023",
+        "summary": "Hikaye, genç bir Willy Wonka'nın ilk maceralarını ve Umpa-Lumpa'larla nasıl tanıştığını anlatacak.",
+        "trailer_video": "https://www.youtube.com/embed/isnYuy3ETeY?si=KEh7OwICAFAaXgz_",
+        "thumbnail": "./img/w1.jpg",
+        "banner": "./img/w2.jpg"
+      },
+      {      
+       "name": "the-creator",
+        "title": "THE CREATOR",
+        "imbd": "6,8/10",
+        "genres": "Bilim Kurgu, Aksiyon, Macera",
+        "release_date": "29 Eylül 2023",
+        "summary": "İnsanlar ve yapay zeka arasındaki savaştan etkilenen distopik bir gelecekte geçen gerilim dolu bir hikaye.",
+        "trailer_video": "https://www.youtube.com/embed/YGX3b3VfnJY?si=zlvf0w8JvTtvjrQC",
+        "thumbnail": "./img/tc1.jpg",
+        "banner": "./img/tc2.jpg"
+      },
+      {      
+       "name": "the-marvels",
+        "title": "THE MARVELS",
+        "imbd": "5,8/10",
+        "genres": "Bilim Kurgu, Aksiyon, Macera",
+        "release_date": "10 Kasım 2023",
+        "summary": "Captain Marvel olarak bilinen Carol Danvers, despot Kree'nin çaldığı kimliğini geri kazanır. Carol'un güçleri, beklenmedik bir şekilde bir Jersey City hayranı olan Kamala Khan -diğer adıyla Ms. Marvel- ve Carol'ın ayrı kaldığı yeğeni S. A. B. E. R. astronotu Monica Rambeau'nun güçleriyle karışır. Bu üçlü, kainatı kurtarmak için bir arada hareket etmelilerdir. Film, 2019'da vizyona giren Captain Marvel filminin devamı niteliğindedir.",
+        "trailer_video": "https://www.youtube.com/embed/uwmDH12MAA4?si=22koRmSPNajPCdMW",
+        "thumbnail": "./img/tm1.jpg",
+        "banner": "./img/tm2.jpg"
+      },
+      {
+        "name": "gozilla-minus-one",
+        "title": "GODZİLLA MİNUS ONE",
+        "imbd": "8,4/10",
+        "genres": "Bilim Kurgu, Aksiyon, Korku",
+        "release_date": "3 Kasım 2023",
+        "summary": "Godzilla, 2. Dünya Savaşı sonrası Japonya'da en düşük noktasında ve ülkeyi eksiye düşürüyor. Savaş sonrası bir Japonya'da geçen film, bize bir kez daha korkunç ve ezici bir güç olan Godzilla'yı gösterecek.",
+        "trailer_video": "https://www.youtube.com/embed/VvSrHIX5a-0?si=FEw8JpH1n2xNrXE0",
+        "thumbnail": "./img/g1.jpg",
+        "banner": "./img/g2.jpg"
+      },
+      {
+        "name": "oppenheimer",
+        "title": "OPPENHEİMER",
+        "imbd": "8,4/10",
+        "genres": "Dram, Tarih",
+        "release_date": "21 Temmuz 2023",
+        "summary": "Christopher Nolan'ın yönettiği film, Amerikalı bilim adamı Julius Robert Oppenheimer'ın hikayesini ve İkinci Dünya Savaşı sırasında atom bombasının geliştirilmesindeki rolünü anlatıyor. Fizikçi Julius Robert Oppenheimer, İkinci Dünya Savaşı sırasında Manhattan Projesi'nin bilimsel lideri yapılmıştır. Fakat o ve eşi Kitty, bu kararın hem kendi hayatlarında hem de bütün dünyanın üzerinde bu kadar büyük bir etkiye sahip olacağını tahmin bile edemezdi.",
+        "trailer_video": "https://www.youtube.com/embed/LWcr8IcfpQA?si=KGYlG1vjuNEdT4-l",
+        "thumbnail": "./img/op1.jpg",
+        "banner": "./img/op2.jpg"
+      },
+      {
+        "name": "no-way-up",
+        "title": "NO WAY UP",
+        "imbd": "Bilinmiyor",
+        "genres": "Aksiyon, Gerilim, Korku",
+        "release_date": "26 Ocak 2024",
+        "summary": "Farklı geçmişlere sahip karakterler, seyahat ettikleri uçağın Pasifik Okyanusu'na düşmesiyle bir araya gelir. Hava kaynağının tükenmesi ve tehlikelerin her taraftan yaklaşmasıyla kabus gibi bir hayatta kalma mücadelesi başlar.",
+        "trailer_video": "https://www.youtube.com/embed/z1DJGr3uzRM?si=uRw5DKG30fr3u1zL",
+        "thumbnail": "./img/n1.jpg",
+        "banner": "./img/n2.jpg"
+      },
+      {
+        "name": "poor-things",
+        "title": "POOR THİNGS",
+        "imbd": "Bilinmiyor",
+        "genres": "Bilim Kurgu, Dram, Komedi",
+        "release_date": "9 Şubat 2024",
+        "summary": "Film bir Viktorya dönemi aşk, keşif ve bilimsel cesaret hikayesi olacak. Poor Things, eksantrik ama parlak bir bilim adamı (Willem Dafoe) tarafından hayata döndürülen genç bir kadın olan Belle Baxter'ın (Emma Stone) inanılmaz hikayesini anlatıyor.",
+        "trailer_video": "https://www.youtube.com/embed/1f4aXbF1pCc?si=ahH4PJP9awrTi38p",
+        "thumbnail": "./img/p1.jpg",
+        "banner": "./img/p2.jpg"
+      },
+      {
+        "name": "madame-web",
+        "title": "MADAME WEB",
+        "imbd": "Bilinmiyor",
+        "genres": "Bilim Kurgu, Aksiyon, Fantastik",
+        "release_date": "16 Şubat 2024",
+        "summary": "Madame Web, Marvel evreninin en esrarengiz kahramanlarından birinin başlangıç hikayesini anlatıyor.",
+        "trailer_video": "https://www.youtube.com/embed/Zd9g40V2LY4?si=GQXOBPkrmMHLrYxK",
+        "thumbnail": "./img/mw1.jpg",
+        "banner": "./img/mw2.jpg"
+      },
+      {
+        "name": "dune:-part-two",
+        "title": "DUNE: PART TWO",
+        "imbd": "Bilinmiyor",
+        "genres": "Bilim Kurgu, Dram, Macera",
+        "release_date": "1 Mart 2024",
+        "summary": "Paul Atreides, Baharat adlı bir metayı koruyan dev solucanların olduğu çöl gezegeninde göçebelerin Mesihi olur. Baharat insanları gezginlere, mistiklere ve hatta delilere dönüştürebilir. Peki evrenlerinin yeni hükümdarı olmak için Paul hangi bedeli ödeyecek?",
+        "trailer_video": "https://www.youtube.com/embed/JPZBw_L5Ajw?si=g3ZnracVHCQ5ii6B",
+        "thumbnail": "./img/d1.jpg",
+        "banner": "./img/d2.jpeg"
+      },
+      {
+        "name": "night-swim",
+        "title": "NİGHT SWİM",
+        "imbd": "Bilinmiyor",
+        "genres": "Gerilim, Korku",
+        "release_date": "23 Şubat 2024",
+        "summary": "Film, dejeneratif bir hastalık nedeniyle erken emekliliğe zorlanan eski bir birinci lig beyzbol oyuncusu olan Ray Waller'ı takip ediyor. Ray, endişeli eşi Eve, genç kızı Izzy ve küçük oğlu Elliot ile yeni bir eve taşınır.Ray, her şeye rağmen gizlice profesyonel spor hayatına dönmeyi umut eder ve Eve'i yeni evin arka bahçesindeki ışıltılı yüzme havuzunun çocuklar için eğlenceli ve onun fizik tedavisine katkı sağlayacağına ikna etmeye çalışır. Ancak evin geçmişindeki karanlık bir sır, aileyi kaçınılmaz bir dehşetin derinliklerine sürükler ve kötü niyetli bir gücü açığa çıkarır. ",
+        "trailer_video": "https://www.youtube.com/embed/pcSNqteCEtE?si=S8lvqTZEM4vmfazX",
+        "thumbnail": "./img/ns1.jpg",
+        "banner": "./img/ns2.jpg"
+      },
+      {
+        "name": "aşk-mevsimi",
+        "title": "AŞK MEVSİMİ",
+        "imbd": "Bilinmiyor",
+        "genres": "Romantik",
+        "release_date": "2 Şubat 2024",
+        "summary": "Film, Şirin ve Ali'nin Bozcaadadan İstanbula uzanan aşk hikayesini merkezine alıyor.",
+        "trailer_video": "https://www.youtube.com/embed/5tuuJCeUCds?si=ZROswM7Lupo4sRS_",
+        "thumbnail": "./img/ask1.jpg",
+        "banner": "./img/ask2.jpg"
+      },
+      {
+        "name": "argylle",
+        "title": "ARGYLLE",
+        "imbd": "Bilinmiyor",
+        "genres": "Aksiyon, Komedi, Suç",
+        "release_date": "2 Şubat 2024",
+        "summary": "Çok satan casusluk romanları serisinin münzevi yazarı Elly Conway'in (Bryce Dallas Howard) mutluluktan anladığı evde bilgisayarı ve kedisi Alfie ile geçirdiği bir gecedir. Ancak Elly'nin gizli ajan Argylle'ı ve onun küresel bir casus örgütünü çözme görevini konu alan kurgusal kitaplarındaki olaylar, gerçek hayattaki bir casus örgütünün gizli eylemlerini yansıtmaya başladığında, evdeki sessiz akşamlar geçmişte kalır.Kediye alerjisi olan casus Aiden'ın (Sam Rockwell) eşlik ettiği Elly (Alfie'yi sırt çantasında taşır), kitabındaki kurgusal dünya ile gerçek dünya arasındaki çizgi bulanıklaşmaya başladıkça katillerden bir adım önde olmak için dünyanın bir ucundan diğerine koşturur.",
+        "trailer_video": "https://www.youtube.com/embed/_kzPx0lKSiA?si=BNmLdzaQ509fzeYx",
+        "thumbnail": "./img/ar1.jpg",
+        "banner": "./img/ar.jpg"
+      },
+      {
+        "name": "breaking-bad",
+        "title": "BREAKİNG BAD",
+        "imbd": "9,2/10",
+        "genres": "Dram, Suç",
+        "release_date": "20 Ocak 2008",
+        "summary": "Doktor, hasta olduğunuzu ve yaşamak için iki seneniz kaldığını söyledi... Ne yapardınız? Dünyayı gezmek, sevdiklerinizle vakit geçirmek, asla cesaret edemediğiniz bir şeyi denemek... Tüm bunlar sizin için bir seçenek olabilir. Ancak Walter White için durum biraz farklı. The X-Files'ın yapımcısı Vince Gillian'ın imzasını taşıyan Breaking Bad, ölümle yüzleşen sıradan bir adamın sıradışı hikayesini anlatıyor. Walter, eşi ve engelli oğlu Jr. ile New Mexico'da tüm hayatını kurallara göre yaşayan kendi halinde bir kimya öğretmeniyken, ölümcül safhada akciğer kanseri olduğunu öğrenir. Yaşamak için iki senesi kalmıştır. Bu haberle sarsılan White, hayatının denklemini değiştirir. Tüm günlük endişelerden ve toplumun dayattığı sınırlamalardan sıyrılarak yeni bir adama dönüşür... Kimya bilgilerini farklı bir neden için, uyuşturucu üretip satmak için kullanan bir adam. Amacı ölümünden sonra ailesinin geçinebilmesini sağlayacak parayı kazanmaktır. Ancak işler kontrolden çıkar. Basit bir aile babasının uyuşturucu çetesinin elebaşına dönüşmesinin komik ama aynı zamanda duygu yüklü hikayesini kaçırmayın. Hele Malcolm in the Middle'ın babası Bryan Cranston, Emmy kazandığı Walter rolünde hayatının performansını sunarken.",
+        "trailer_video": "https://www.youtube.com/embed/HhesaQXLuRY?si=HnNweD4Ab_LlLQs2" ,
+        "thumbnail": "./img/bb1.jpg",
+        "banner": "./img/bb2.jpg"
+      },
+      {
+        "name": "the-walking-dead",
+        "title": "THE WALKİNG DEAD",
+        "imbd": "8,5/10",
+        "genres": "Bilim Kurgu, Aksiyon, Dram",
+        "release_date": "31 Ekim 2010",
+        "summary": "Şerif Rick Grimes, komadan uyanır ve bildiği dünyanın yok olduğunu öğrenir. Ölülerin egemen olduğu bu dünyada hayatta kalmak için diğer kurtulanları bir arada tutmalı ve onlara liderlik etmelidir. Ancak tek tehlike ölüler değildir...",
+        "trailer_video": "https://www.youtube.com/embed/sfAc2U20uyg?si=F8wVHy6Q1xEiCWX7" ,
+        "thumbnail": "./img/twd1.jpg",
+        "banner": "./img/twd2.jpg"
+      },
+      {
+        "name": "prison-break",
+        "title": "PRİSON BREAK",
+        "imbd": "8,7/10",
+        "genres": "Aksiyon, Dram, Suç",
+        "release_date": "29 Ağustos 2005",
+        "summary": "Cehennemden farksız Panama cezaevi Sona'dan kaçmayı başaran kardeşler MICHAEL SCOFIELD (Wentworth Miller) ve LINCOLN BURROWS (Dominic Purcell), hayatlarını mahveden Şirket adındaki karanlık örgüt karşısında adaletin peşindedirler. Şirket, Michael'ın sevdiği kadın DR. SARA TANCREDI'nin (Sarah Wayne Callies) ölümünden de sorumludur. İntikam peşinde koşan Michael, kendini Los Angeles'ta bulur. Orada Şirket ajanı GRETCHEN / SUSAN B. ANTHONY'nin (Jodi Lyn O'Keefe) Sara'nın hâlâ hayatta olduğunu söylemesi üzerine dünyası alt üst olacaktır. Gerçekten özgür kalabilmek için ne yapmaları gerektiğini fark eden Michael ve Lincoln, Sara'yı bulmaya ve örgütün kara kaplı defterini çalarak Şirket'i çökertmeye karar verirler. İç Güvenlik Bakanlığı ajanı DON SELF'in (Michael Rapaport) de yardımlarıyla bu görevi yerine getirmek üzere tanıdık yüzleri bir araya toplarlar: MAHONE (William Fichtner), SUCRE (Amaury Nolasco), BELLICK (Wade Williams) ve bilgisayar uzmanı ROLAND GLENN (James Hiroyuki Liao). Ne yazık ki kardeşlerin bir yandan da Şirket'in tetikçisi WYATT'tan (Cress Williams) kaçmaları ve serbest kalan T-BAG'i (Robert Knepper) bulmaları gerekmektedir. Önlerindeki en büyük zorluğu aşmalarında onlara yardım edecek hayatî ipuçları, bunun henüz farkında olmayan T-BAG'in elindedir. Michael ve Lincoln, çok geçmeden bir binadan kaçmaktan daha zor olan tek şeyin, bir binaya girmek olduğunu göreceklerdir.",
+        "trailer_video": "https://www.youtube.com/embed/iABCLLOrzZA?si=TGebEX_KeXlc1aVO" ,
+        "thumbnail": "./img/pb1.jpg",
+        "banner": "./img/pb2.jpg"
+      },
+      {
+        "name": "squid-game",
+        "title": "SQUİD GAME",
+        "imbd": "8,1/10",
+        "genres": "Aksiyon, Dram, Gizem",
+        "release_date": "17 Eylül 2021",
+        "summary": "Kazanana 10 milyon dolarlık bir ödülün vaat edildiği bir 'hayatta kalma' oyununu ve tabii ki oyuncularını merkeze alıyor. Kendi kişisel hayatlarında pek çok nedenle başarısızlığa uğramış bir grup insan, bir gün gizemli bir davet alırlar. Bu bir oyun davetidir ve kazanan kişi 10 milyon dolarlık büyük ödülün de sahibi olacaktır. Oyunun lokasyonu bilinmemektedir ve son bir kazanan oluncaya dek oyuncular bu lokasyonda kilitli kalacaktır.",
+        "trailer_video": "https://www.youtube.com/embed/oqxAJKy0ii4?si=8wSjG4NUR8J_yila" ,
+        "thumbnail": "./img/sg1.jpg",
+        "banner": "./img/sq2.jpg"
+      },
+      {
+        "name": "süt-kardeşler",
+        "title": "SÜT KARDEŞLER",
+        "imbd": "8,7/10",
+        "genres": "Aile, Komedi",
+        "release_date": "1976",
+        "summary": "Yıllardır kimsenin sahip olamadığı konağın sahibi Melek Hanım sütoğlu Şaban sanıp da Şaban'ın arkadaşı Ramazan'ı eve alır. Fakat sinirli abisi Hüsamettin'e Ramazan'ı damadı Bayram olarak tanıtır. Konağa gelen gerçek Şaban ve gerçek Bayram'ın işleri karıştırdığı yetmiyormuş gibi bir de damat Bayram'ın babasının eve Gulyabani adında bir esrarengiz canavarı konağa illet etmesi her şeyi birbirine karıştıracaktır.",
+        "trailer_video": "https://www.youtube.com/embed/F13jO2QOgCo?si=WkwOltUlZgQ38CCo" ,
+        "thumbnail": "./img/sk1.jpg",
+        "banner": "./img/sk2.jpg"
+      },
+      {
+        "name": "s-o-s",
+        "title": "ŞABANOĞLU ŞABAN",
+        "imbd": "8,6/10",
+        "genres": "Komedi",
+        "release_date": "1 Aralık 1977",
+        "summary": "Canciğer arkadaşlar Şaban ile Ramazan'ın komik oyküsü. Vatani görevini tamamlayan Şaban, tezkereyi alınca, eski komutanının yanında işe girer. Arkadaşı Ramazan'la birlikte, polisin bir türlü yakalayamadıkları kabadıyı Kadırgalı Eşref'i yakalarlar ve kahraman olurlar. Bu başarılarından sonra Nazır Paşa onları gizli polis yapar. Bu arada Nazır Paşa'nın evinde kızkardeşinin elması çalınır. Nazır Paşa  Şaban ve Ramazanı konağında araştırma yapmak ve elması bulmak için onları görevlendirir.",
+        "trailer_video": "https://www.youtube.com/embed/LiC6q8HQ5Qg?si=O-8LD_bHOpeGdSs6" ,
+        "thumbnail": "./img/sos1.jpg",
+        "banner": "./img/sos2.jpg"
+      },
+      {
+        "name": "üc-kagitci",
+        "title": "ÜÇ KAĞITÇI",
+        "imbd": "8,6/10",
+        "genres": "Komedi",
+        "release_date": "1 Ekim 1981",
+        "summary": "Ölen babasının mallarını satmak için Almanya'dan köyüne dönen Rıfkı tesadüfler sonucu bir 'ermiş'e dönüşür. Yağmur duasına çıkan köylüler için yağmur yağdırır, üfürükçülük yapar, evde kalmış kızların kısmetini açar. Bu arada Belediye Reisi seçimlerine adaylığını koyması istenir. Seçimleri kazanır ancak çok geçmeden üçkağıtçı olduğu ortaya çıkar.",
+        "trailer_video": "https://www.youtube.com/embed/S062NiSgWT4?si=S_duliz_9ZwfCO_X" ,
+        "thumbnail": "./img/ük1.jpg",
+        "banner": "./img/ük2.jpg"
+      },
+      {
+        "name": "tokatci",
+        "title": "TOKATÇI",
+        "imbd": "7,9/10",
+        "genres": "Komedi",
+        "release_date": "1983",
+        "summary": "Saf köylü Osman, yanında ırgat olarak çalıştığı Hasan Ağa'nın kızı Emine'ye deliler gibi aşıktır... Bunu ağaya açıklayınca ağa öfkeden deliye döner. Ancak Osman ailesiyle birlikte kapısına dayanınca da yüklü miktarda başlık parası ister. Aşkından divane olan Osman yüzünden başlık parası arttıkça artar ve 600 bin liraya yükselir. Parayı biriktirmek için gurbete çalışmaya giden Osman tamamladığı başlık parasıyla köye dönerken soyulur. Dönüşte Emine'yi alamadığı gibi, toprakları elinden alınan babasının da ölümüne tanık olur. Tekrar şehire dönen Osman hem başlık parası biriktirmek, hem toprakları geri almak için çare aramaya başlar. İkinci İstanbul macerasında karşısına çıkan askerlik arkadaşı Şevket, ona kısa yoldan zengin olmasına yarayacak tokatçılığı öğretmeye başlar. Şevket'ten insanları ve hayatı tanımaya öğrenen Osman, ona saflığı ve iyiliği öğretecektir.",
+        "trailer_video": "https://www.youtube.com/embed/P7kGoh2HWos?si=1sc8GIPgTx4_0IMc" ,
+        "thumbnail": "./img/to1.jpg",
+        "banner": "./img/to2.jpg"
+      },
+
+    ];
+  
+    const requestedMovie = new URLSearchParams(window.location.search).get("film");
+    const movieData = database.find(movie => movie.name == requestedMovie);
+
+    if (!requestedMovie || !movieData) {
+      alert("İçerik bulunamadı");
+    }
+
+    document.getElementById("title").textContent = movieData.title;
+    document.getElementById("imdb-score").textContent = movieData.imbd;
+    document.getElementById("genres").textContent = movieData.genres;
+    document.getElementById("release-date").textContent = movieData.release_date;
+    document.getElementById("summary").textContent = movieData.summary;
+    document.getElementById("trailer-video").src = movieData.trailer_video;
+    document.getElementById("thumbnail").src = movieData.thumbnail;
+    document.getElementById("banner").src = movieData.banner;
+  </script>
+</html>
